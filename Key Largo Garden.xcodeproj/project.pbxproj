@@ -1,0 +1,730 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B4E7EBF273ED8F00079004A /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E7EBE273ED8F00079004A /* Tests_iOS.swift */; };
+		1B4E7EC1273ED8F00079004A /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E7EC0273ED8F00079004A /* Tests_iOSLaunchTests.swift */; };
+		1B4E7ECB273ED8F00079004A /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E7ECA273ED8F00079004A /* Tests_macOS.swift */; };
+		1B4E7ECD273ED8F00079004A /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E7ECC273ED8F00079004A /* Tests_macOSLaunchTests.swift */; };
+		1B4E7ECE273ED8F00079004A /* Key_Largo_GardenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E7EA6273ED8EF0079004A /* Key_Largo_GardenApp.swift */; };
+		1B4E7ECF273ED8F00079004A /* Key_Largo_GardenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E7EA6273ED8EF0079004A /* Key_Largo_GardenApp.swift */; };
+		1B4E7ED0273ED8F00079004A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E7EA7273ED8EF0079004A /* ContentView.swift */; };
+		1B4E7ED1273ED8F00079004A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E7EA7273ED8EF0079004A /* ContentView.swift */; };
+		1B4E7ED2273ED8F00079004A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B4E7EA8273ED8F00079004A /* Assets.xcassets */; };
+		1B4E7ED3273ED8F00079004A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B4E7EA8273ED8F00079004A /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1B4E7EBB273ED8F00079004A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B4E7EA1273ED8EF0079004A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B4E7EAC273ED8F00079004A;
+			remoteInfo = "Key Largo Garden (iOS)";
+		};
+		1B4E7EC7273ED8F00079004A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B4E7EA1273ED8EF0079004A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B4E7EB2273ED8F00079004A;
+			remoteInfo = "Key Largo Garden (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1B4E7EA6273ED8EF0079004A /* Key_Largo_GardenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key_Largo_GardenApp.swift; sourceTree = "<group>"; };
+		1B4E7EA7273ED8EF0079004A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1B4E7EA8273ED8F00079004A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1B4E7EAD273ED8F00079004A /* Key Largo Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Key Largo Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B4E7EB3273ED8F00079004A /* Key Largo Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Key Largo Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B4E7EB5273ED8F00079004A /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		1B4E7EBA273ED8F00079004A /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B4E7EBE273ED8F00079004A /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
+		1B4E7EC0273ED8F00079004A /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
+		1B4E7EC6273ED8F00079004A /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B4E7ECA273ED8F00079004A /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
+		1B4E7ECC273ED8F00079004A /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1B4E7EAA273ED8F00079004A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B4E7EB0273ED8F00079004A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B4E7EB7273ED8F00079004A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B4E7EC3273ED8F00079004A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1B4E7EA0273ED8EF0079004A = {
+			isa = PBXGroup;
+			children = (
+				1B4E7EA5273ED8EF0079004A /* Shared */,
+				1B4E7EB4273ED8F00079004A /* macOS */,
+				1B4E7EBD273ED8F00079004A /* Tests iOS */,
+				1B4E7EC9273ED8F00079004A /* Tests macOS */,
+				1B4E7EAE273ED8F00079004A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1B4E7EA5273ED8EF0079004A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				1B4E7EA6273ED8EF0079004A /* Key_Largo_GardenApp.swift */,
+				1B4E7EA7273ED8EF0079004A /* ContentView.swift */,
+				1B4E7EA8273ED8F00079004A /* Assets.xcassets */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		1B4E7EAE273ED8F00079004A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1B4E7EAD273ED8F00079004A /* Key Largo Garden.app */,
+				1B4E7EB3273ED8F00079004A /* Key Largo Garden.app */,
+				1B4E7EBA273ED8F00079004A /* Tests iOS.xctest */,
+				1B4E7EC6273ED8F00079004A /* Tests macOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1B4E7EB4273ED8F00079004A /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				1B4E7EB5273ED8F00079004A /* macOS.entitlements */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		1B4E7EBD273ED8F00079004A /* Tests iOS */ = {
+			isa = PBXGroup;
+			children = (
+				1B4E7EBE273ED8F00079004A /* Tests_iOS.swift */,
+				1B4E7EC0273ED8F00079004A /* Tests_iOSLaunchTests.swift */,
+			);
+			path = "Tests iOS";
+			sourceTree = "<group>";
+		};
+		1B4E7EC9273ED8F00079004A /* Tests macOS */ = {
+			isa = PBXGroup;
+			children = (
+				1B4E7ECA273ED8F00079004A /* Tests_macOS.swift */,
+				1B4E7ECC273ED8F00079004A /* Tests_macOSLaunchTests.swift */,
+			);
+			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1B4E7EAC273ED8F00079004A /* Key Largo Garden (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B4E7ED6273ED8F00079004A /* Build configuration list for PBXNativeTarget "Key Largo Garden (iOS)" */;
+			buildPhases = (
+				1B4E7EA9273ED8F00079004A /* Sources */,
+				1B4E7EAA273ED8F00079004A /* Frameworks */,
+				1B4E7EAB273ED8F00079004A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Key Largo Garden (iOS)";
+			productName = "Key Largo Garden (iOS)";
+			productReference = 1B4E7EAD273ED8F00079004A /* Key Largo Garden.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1B4E7EB2273ED8F00079004A /* Key Largo Garden (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B4E7ED9273ED8F00079004A /* Build configuration list for PBXNativeTarget "Key Largo Garden (macOS)" */;
+			buildPhases = (
+				1B4E7EAF273ED8F00079004A /* Sources */,
+				1B4E7EB0273ED8F00079004A /* Frameworks */,
+				1B4E7EB1273ED8F00079004A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Key Largo Garden (macOS)";
+			productName = "Key Largo Garden (macOS)";
+			productReference = 1B4E7EB3273ED8F00079004A /* Key Largo Garden.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1B4E7EB9273ED8F00079004A /* Tests iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B4E7EDC273ED8F00079004A /* Build configuration list for PBXNativeTarget "Tests iOS" */;
+			buildPhases = (
+				1B4E7EB6273ED8F00079004A /* Sources */,
+				1B4E7EB7273ED8F00079004A /* Frameworks */,
+				1B4E7EB8273ED8F00079004A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B4E7EBC273ED8F00079004A /* PBXTargetDependency */,
+			);
+			name = "Tests iOS";
+			productName = "Tests iOS";
+			productReference = 1B4E7EBA273ED8F00079004A /* Tests iOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		1B4E7EC5273ED8F00079004A /* Tests macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B4E7EDF273ED8F00079004A /* Build configuration list for PBXNativeTarget "Tests macOS" */;
+			buildPhases = (
+				1B4E7EC2273ED8F00079004A /* Sources */,
+				1B4E7EC3273ED8F00079004A /* Frameworks */,
+				1B4E7EC4273ED8F00079004A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B4E7EC8273ED8F00079004A /* PBXTargetDependency */,
+			);
+			name = "Tests macOS";
+			productName = "Tests macOS";
+			productReference = 1B4E7EC6273ED8F00079004A /* Tests macOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1B4E7EA1273ED8EF0079004A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1310;
+				TargetAttributes = {
+					1B4E7EAC273ED8F00079004A = {
+						CreatedOnToolsVersion = 13.1;
+					};
+					1B4E7EB2273ED8F00079004A = {
+						CreatedOnToolsVersion = 13.1;
+					};
+					1B4E7EB9273ED8F00079004A = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 1B4E7EAC273ED8F00079004A;
+					};
+					1B4E7EC5273ED8F00079004A = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 1B4E7EB2273ED8F00079004A;
+					};
+				};
+			};
+			buildConfigurationList = 1B4E7EA4273ED8EF0079004A /* Build configuration list for PBXProject "Key Largo Garden" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1B4E7EA0273ED8EF0079004A;
+			productRefGroup = 1B4E7EAE273ED8F00079004A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1B4E7EAC273ED8F00079004A /* Key Largo Garden (iOS) */,
+				1B4E7EB2273ED8F00079004A /* Key Largo Garden (macOS) */,
+				1B4E7EB9273ED8F00079004A /* Tests iOS */,
+				1B4E7EC5273ED8F00079004A /* Tests macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1B4E7EAB273ED8F00079004A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B4E7ED2273ED8F00079004A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B4E7EB1273ED8F00079004A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B4E7ED3273ED8F00079004A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B4E7EB8273ED8F00079004A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B4E7EC4273ED8F00079004A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1B4E7EA9273ED8F00079004A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B4E7ED0273ED8F00079004A /* ContentView.swift in Sources */,
+				1B4E7ECE273ED8F00079004A /* Key_Largo_GardenApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B4E7EAF273ED8F00079004A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B4E7ED1273ED8F00079004A /* ContentView.swift in Sources */,
+				1B4E7ECF273ED8F00079004A /* Key_Largo_GardenApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B4E7EB6273ED8F00079004A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B4E7EC1273ED8F00079004A /* Tests_iOSLaunchTests.swift in Sources */,
+				1B4E7EBF273ED8F00079004A /* Tests_iOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B4E7EC2273ED8F00079004A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B4E7ECD273ED8F00079004A /* Tests_macOSLaunchTests.swift in Sources */,
+				1B4E7ECB273ED8F00079004A /* Tests_macOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1B4E7EBC273ED8F00079004A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B4E7EAC273ED8F00079004A /* Key Largo Garden (iOS) */;
+			targetProxy = 1B4E7EBB273ED8F00079004A /* PBXContainerItemProxy */;
+		};
+		1B4E7EC8273ED8F00079004A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B4E7EB2273ED8F00079004A /* Key Largo Garden (macOS) */;
+			targetProxy = 1B4E7EC7273ED8F00079004A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1B4E7ED4273ED8F00079004A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1B4E7ED5273ED8F00079004A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		1B4E7ED7273ED8F00079004A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VQV6K4GT4S;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.forwardtechfl.Key-Largo-Garden";
+				PRODUCT_NAME = "Key Largo Garden";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1B4E7ED8273ED8F00079004A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VQV6K4GT4S;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.forwardtechfl.Key-Largo-Garden";
+				PRODUCT_NAME = "Key Largo Garden";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1B4E7EDA273ED8F00079004A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VQV6K4GT4S;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.forwardtechfl.Key-Largo-Garden";
+				PRODUCT_NAME = "Key Largo Garden";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1B4E7EDB273ED8F00079004A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VQV6K4GT4S;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.forwardtechfl.Key-Largo-Garden";
+				PRODUCT_NAME = "Key Largo Garden";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		1B4E7EDD273ED8F00079004A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VQV6K4GT4S;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.forwardtechfl.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Key Largo Garden (iOS)";
+			};
+			name = Debug;
+		};
+		1B4E7EDE273ED8F00079004A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VQV6K4GT4S;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.forwardtechfl.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Key Largo Garden (iOS)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1B4E7EE0273ED8F00079004A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VQV6K4GT4S;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.forwardtechfl.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Key Largo Garden (macOS)";
+			};
+			name = Debug;
+		};
+		1B4E7EE1273ED8F00079004A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VQV6K4GT4S;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.forwardtechfl.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Key Largo Garden (macOS)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1B4E7EA4273ED8EF0079004A /* Build configuration list for PBXProject "Key Largo Garden" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B4E7ED4273ED8F00079004A /* Debug */,
+				1B4E7ED5273ED8F00079004A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B4E7ED6273ED8F00079004A /* Build configuration list for PBXNativeTarget "Key Largo Garden (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B4E7ED7273ED8F00079004A /* Debug */,
+				1B4E7ED8273ED8F00079004A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B4E7ED9273ED8F00079004A /* Build configuration list for PBXNativeTarget "Key Largo Garden (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B4E7EDA273ED8F00079004A /* Debug */,
+				1B4E7EDB273ED8F00079004A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B4E7EDC273ED8F00079004A /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B4E7EDD273ED8F00079004A /* Debug */,
+				1B4E7EDE273ED8F00079004A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B4E7EDF273ED8F00079004A /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B4E7EE0273ED8F00079004A /* Debug */,
+				1B4E7EE1273ED8F00079004A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1B4E7EA1273ED8EF0079004A /* Project object */;
+}
