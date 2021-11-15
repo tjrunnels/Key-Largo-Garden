@@ -11,7 +11,7 @@ import SwiftUI
 struct Key_Largo_GardenApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomePage()
         }
     }
 }
