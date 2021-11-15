@@ -1,0 +1,83 @@
+schema {
+    query: Query
+}
+
+
+type Query {
+    getUpdate(updateID: String!): Update
+    getUpdates(nextToken: String): UpdatesPage
+
+    getPlant(plantID: String!): Plant
+    getPlants(nextToken: String): PlantsPage
+    getPlantsByPost(postID: String!): PlantsPage
+
+    getPost(postID: String!): Post
+    getPosts(nextToken: String): PostsPage
+    getPostsByPlant(plantID: String!, limit: Int, nextToken: String!): PostsPage
+
+}
+
+
+
+
+
+
+
+
+
+
+type UpdatesPage {
+    updates: [Update]
+    nextToken: String
+    hasMore: Boolean
+}
+
+type Update @model @key(fields: ["updateID"]) {
+    updateID: ID!
+    postID: ID
+    plantID: ID
+    updateType: [UpdateType]!
+}
+
+enum UpdateType {
+    POST_CREATED
+    PICTURE_ADDED
+    PLANT_ADDED
+    PLANT_REMOVED
+}
+
+type PlantsPage {
+    plants: [Plant]
+    nextToken: String
+    hasMore: Boolean
+}
+
+type Plant @model @key(fields: ["plantID"]) {
+    plantID: ID!
+    linkedIn: [PostsPage]
+
+    name: String!
+    description: String
+    pictures: [String]
+
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+}
+
+type PostsPage {
+    posts: [Post]
+    nextToken: String
+    hasMore: Boolean
+}
+
+type Post @model @key(fields: ["postID"]) {
+    postID: ID!
+    linkedPlants: [Plant]
+    
+    title: String!
+    content: String!
+    pictures: [String]
+
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+}

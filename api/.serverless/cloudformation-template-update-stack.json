@@ -1,0 +1,1201 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "The AWS CloudFormation template for this Serverless application",
+  "Resources": {
+    "ServerlessDeploymentBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ServerlessDeploymentBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "ServerlessDeploymentBucket"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "ServerlessDeploymentBucket"
+                      },
+                      "/*"
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "ServerlessDeploymentBucket"
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": false
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "HelloLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/api-dev-hello"
+      }
+    },
+    "IamRoleLambdaExecution": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": {
+              "Fn::Join": [
+                "-",
+                [
+                  "api",
+                  "dev",
+                  "lambda"
+                ]
+              ]
+            },
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:CreateLogGroup"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/api-dev*:*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/api-dev*:*:*"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "Path": "/",
+        "RoleName": {
+          "Fn::Join": [
+            "-",
+            [
+              "api",
+              "dev",
+              {
+                "Ref": "AWS::Region"
+              },
+              "lambdaRole"
+            ]
+          ]
+        }
+      }
+    },
+    "HelloLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/api/dev/1637017563733-2021-11-15T23:06:03.733Z/api.zip"
+        },
+        "Handler": "src/functions/hello/handler.main",
+        "Runtime": "nodejs14.x",
+        "FunctionName": "api-dev-hello",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "HelloLogGroup"
+      ]
+    },
+    "HelloLambdaVersiongtOTma4zURo6oztgqvNJVtulA9C9YZxz9uFXUApM": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "HelloLambdaFunction"
+        },
+        "CodeSha256": "mvMYF+dqjhl/6kf3vsdHZeVc99McgNaw6w/eQvWbJx4="
+      }
+    },
+    "ApiGatewayRestApi": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "api-dev",
+        "EndpointConfiguration": {
+          "Types": [
+            "EDGE"
+          ]
+        },
+        "Policy": "",
+        "MinimumCompressionSize": 1024
+      }
+    },
+    "ApiGatewayResourceHello": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "hello",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodHelloPost": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceHello"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "HelloLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": [],
+        "RequestValidatorId": {
+          "Ref": "ApiGatewayApiRequestValidator"
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiGatewayMethodHelloPostApplicationJsonModel"
+          }
+        }
+      },
+      "DependsOn": [
+        "HelloLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayApiRequestValidator": {
+      "Type": "AWS::ApiGateway::RequestValidator",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ValidateRequestBody": true,
+        "ValidateRequestParameters": true,
+        "Name": "api-dev | Validate request body and querystring parameters"
+      }
+    },
+    "ApiGatewayMethodHelloPostApplicationJsonModel": {
+      "Type": "AWS::ApiGateway::Model",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ContentType": "application/json",
+        "Schema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        }
+      }
+    },
+    "ApiGatewayDeployment1637017562580": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "StageName": "dev"
+      },
+      "DependsOn": [
+        "ApiGatewayMethodHelloPost"
+      ]
+    },
+    "HelloLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "HelloLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "UpdatesTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "updateID",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "updateID",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "plantID",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "postID",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "byPlant",
+            "KeySchema": [
+              {
+                "AttributeName": "plantID",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "updateID",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          },
+          {
+            "IndexName": "byPost",
+            "KeySchema": [
+              {
+                "AttributeName": "postID",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "updateID",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          }
+        ]
+      }
+    },
+    "PlantPostRelationshipTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "plantID",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "plantID",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "postID",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "byPost",
+            "KeySchema": [
+              {
+                "AttributeName": "postID",
+                "KeyType": "HASH"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          }
+        ]
+      }
+    },
+    "PlantsTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "plantID",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "plantID",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": []
+      }
+    },
+    "PostsTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "postID",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "postID",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": []
+      }
+    },
+    "CognitoUserPool": {
+      "Type": "AWS::Cognito::UserPool",
+      "Properties": {
+        "AutoVerifiedAttributes": [
+          "email"
+        ],
+        "Policies": {
+          "PasswordPolicy": {
+            "MinimumLength": 8,
+            "RequireLowercase": false,
+            "RequireNumbers": false,
+            "RequireSymbols": false,
+            "RequireUppercase": false
+          }
+        },
+        "UsernameAttributes": [
+          "email"
+        ],
+        "Schema": [
+          {
+            "AttributeDataType": "String",
+            "Name": "name",
+            "Required": false,
+            "Mutable": true
+          }
+        ]
+      }
+    },
+    "WebUserPoolClient": {
+      "Type": "AWS::Cognito::UserPoolClient",
+      "Properties": {
+        "UserPoolId": {
+          "Ref": "CognitoUserPool"
+        },
+        "ClientName": "web",
+        "ExplicitAuthFlows": [
+          "ALLOW_USER_SRP_AUTH",
+          "ALLOW_USER_PASSWORD_AUTH",
+          "ALLOW_REFRESH_TOKEN_AUTH"
+        ],
+        "PreventUserExistenceErrors": "ENABLED"
+      }
+    },
+    "GraphQlApi": {
+      "Type": "AWS::AppSync::GraphQLApi",
+      "Properties": {
+        "Name": "keylargogarden",
+        "AuthenticationType": "AMAZON_COGNITO_USER_POOLS",
+        "AdditionalAuthenticationProviders": [],
+        "UserPoolConfig": {
+          "AwsRegion": "us-east-1",
+          "UserPoolId": {
+            "Ref": "CognitoUserPool"
+          },
+          "DefaultAction": "ALLOW"
+        },
+        "XrayEnabled": false
+      }
+    },
+    "GraphQlSchema": {
+      "Type": "AWS::AppSync::GraphQLSchema",
+      "Properties": {
+        "Definition": "schema {\n  query: Query\n}\n\ntype Query {\n  getUpdate(updateID: String!): Update\n  getUpdates(nextToken: String): UpdatesPage\n  getPlant(plantID: String!): Plant\n  getPlants(nextToken: String): PlantsPage\n  getPlantsByPost(postID: String!): PlantsPage\n  getPost(postID: String!): Post\n  getPosts(nextToken: String): PostsPage\n  getPostsByPlant(plantID: String!, limit: Int, nextToken: String!): PostsPage\n}\n\ntype UpdatesPage {\n  updates: [Update]\n  nextToken: String\n  hasMore: Boolean\n}\n\ntype Update @model @key(fields: [\"updateID\"]) {\n  updateID: ID!\n  postID: ID\n  plantID: ID\n  updateType: [UpdateType]!\n}\n\nenum UpdateType {\n  POST_CREATED\n  PICTURE_ADDED\n  PLANT_ADDED\n  PLANT_REMOVED\n}\n\ntype PlantsPage {\n  plants: [Plant]\n  nextToken: String\n  hasMore: Boolean\n}\n\ntype Plant @model @key(fields: [\"plantID\"]) {\n  plantID: ID!\n  linkedIn: [PostsPage]\n  name: String!\n  description: String\n  pictures: [String]\n  createdAt: AWSDateTime!\n  updatedAt: AWSDateTime!\n}\n\ntype PostsPage {\n  posts: [Post]\n  nextToken: String\n  hasMore: Boolean\n}\n\ntype Post @model @key(fields: [\"postID\"]) {\n  postID: ID!\n  linkedPlants: [Plant]\n  title: String!\n  content: String!\n  pictures: [String]\n  createdAt: AWSDateTime!\n  updatedAt: AWSDateTime!\n}",
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        }
+      }
+    },
+    "GraphQlDsupdatesTableRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "appsync.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "GraphQlDsupdatesTablePolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Action": [
+                    "dynamodb:DeleteItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:Query",
+                    "dynamodb:Scan",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:ConditionCheckItem"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        ":",
+                        [
+                          "arn",
+                          "aws",
+                          "dynamodb",
+                          "us-east-1",
+                          {
+                            "Ref": "AWS::AccountId"
+                          },
+                          {
+                            "Fn::Join": [
+                              "/",
+                              [
+                                "table",
+                                {
+                                  "Ref": "UpdatesTable"
+                                }
+                              ]
+                            ]
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "/",
+                        [
+                          {
+                            "Fn::Join": [
+                              ":",
+                              [
+                                "arn",
+                                "aws",
+                                "dynamodb",
+                                "us-east-1",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "/",
+                                    [
+                                      "table",
+                                      {
+                                        "Ref": "UpdatesTable"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              ]
+                            ]
+                          },
+                          "*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "GraphQlDsplantPostRelationshipTableRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "appsync.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "GraphQlDsplantPostRelationshipTablePolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Action": [
+                    "dynamodb:DeleteItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:Query",
+                    "dynamodb:Scan",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:ConditionCheckItem"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        ":",
+                        [
+                          "arn",
+                          "aws",
+                          "dynamodb",
+                          "us-east-1",
+                          {
+                            "Ref": "AWS::AccountId"
+                          },
+                          {
+                            "Fn::Join": [
+                              "/",
+                              [
+                                "table",
+                                {
+                                  "Ref": "PlantPostRelationshipTable"
+                                }
+                              ]
+                            ]
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "/",
+                        [
+                          {
+                            "Fn::Join": [
+                              ":",
+                              [
+                                "arn",
+                                "aws",
+                                "dynamodb",
+                                "us-east-1",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "/",
+                                    [
+                                      "table",
+                                      {
+                                        "Ref": "PlantPostRelationshipTable"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              ]
+                            ]
+                          },
+                          "*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "GraphQlDsplantsTableRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "appsync.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "GraphQlDsplantsTablePolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Action": [
+                    "dynamodb:DeleteItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:Query",
+                    "dynamodb:Scan",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:ConditionCheckItem"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        ":",
+                        [
+                          "arn",
+                          "aws",
+                          "dynamodb",
+                          "us-east-1",
+                          {
+                            "Ref": "AWS::AccountId"
+                          },
+                          {
+                            "Fn::Join": [
+                              "/",
+                              [
+                                "table",
+                                {
+                                  "Ref": "PlantsTable"
+                                }
+                              ]
+                            ]
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "/",
+                        [
+                          {
+                            "Fn::Join": [
+                              ":",
+                              [
+                                "arn",
+                                "aws",
+                                "dynamodb",
+                                "us-east-1",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "/",
+                                    [
+                                      "table",
+                                      {
+                                        "Ref": "PlantsTable"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              ]
+                            ]
+                          },
+                          "*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "GraphQlDspostsTableRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "appsync.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "GraphQlDspostsTablePolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Action": [
+                    "dynamodb:DeleteItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:Query",
+                    "dynamodb:Scan",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:ConditionCheckItem"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        ":",
+                        [
+                          "arn",
+                          "aws",
+                          "dynamodb",
+                          "us-east-1",
+                          {
+                            "Ref": "AWS::AccountId"
+                          },
+                          {
+                            "Fn::Join": [
+                              "/",
+                              [
+                                "table",
+                                {
+                                  "Ref": "PostsTable"
+                                }
+                              ]
+                            ]
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "/",
+                        [
+                          {
+                            "Fn::Join": [
+                              ":",
+                              [
+                                "arn",
+                                "aws",
+                                "dynamodb",
+                                "us-east-1",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "/",
+                                    [
+                                      "table",
+                                      {
+                                        "Ref": "PostsTable"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              ]
+                            ]
+                          },
+                          "*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "GraphQlDsnone": {
+      "Type": "AWS::AppSync::DataSource",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "none",
+        "Type": "NONE"
+      }
+    },
+    "GraphQlDsupdatesTable": {
+      "Type": "AWS::AppSync::DataSource",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "updatesTable",
+        "Type": "AMAZON_DYNAMODB",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "GraphQlDsupdatesTableRole",
+            "Arn"
+          ]
+        },
+        "DynamoDBConfig": {
+          "AwsRegion": "us-east-1",
+          "TableName": {
+            "Ref": "UpdatesTable"
+          },
+          "UseCallerCredentials": false,
+          "Versioned": false
+        }
+      }
+    },
+    "GraphQlDsplantPostRelationshipTable": {
+      "Type": "AWS::AppSync::DataSource",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "plantPostRelationshipTable",
+        "Type": "AMAZON_DYNAMODB",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "GraphQlDsplantPostRelationshipTableRole",
+            "Arn"
+          ]
+        },
+        "DynamoDBConfig": {
+          "AwsRegion": "us-east-1",
+          "TableName": {
+            "Ref": "PlantPostRelationshipTable"
+          },
+          "UseCallerCredentials": false,
+          "Versioned": false
+        }
+      }
+    },
+    "GraphQlDsplantsTable": {
+      "Type": "AWS::AppSync::DataSource",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "plantsTable",
+        "Type": "AMAZON_DYNAMODB",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "GraphQlDsplantsTableRole",
+            "Arn"
+          ]
+        },
+        "DynamoDBConfig": {
+          "AwsRegion": "us-east-1",
+          "TableName": {
+            "Ref": "PlantsTable"
+          },
+          "UseCallerCredentials": false,
+          "Versioned": false
+        }
+      }
+    },
+    "GraphQlDspostsTable": {
+      "Type": "AWS::AppSync::DataSource",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "postsTable",
+        "Type": "AMAZON_DYNAMODB",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "GraphQlDspostsTableRole",
+            "Arn"
+          ]
+        },
+        "DynamoDBConfig": {
+          "AwsRegion": "us-east-1",
+          "TableName": {
+            "Ref": "PostsTable"
+          },
+          "UseCallerCredentials": false,
+          "Versioned": false
+        }
+      }
+    },
+    "GraphQlResolverQuerygetUpdate": {
+      "Type": "AWS::AppSync::Resolver",
+      "DependsOn": "GraphQlSchema",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "TypeName": "Query",
+        "FieldName": "getUpdate",
+        "RequestMappingTemplate": "{\n    \"version\": \"2018-05-29\",\n    \"operation\": \"GetItem\",\n    \"key\": {\n        \"updateID\": $util.dynamodb.toDynamoDBJson($context.arguments.updateID)\n    }\n}\n\n",
+        "ResponseMappingTemplate": "$util.toJson($context.result)",
+        "Kind": "UNIT",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsupdatesTable",
+            "Name"
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "ServerlessDeploymentBucketName": {
+      "Value": {
+        "Ref": "ServerlessDeploymentBucket"
+      },
+      "Export": {
+        "Name": "sls-api-dev-ServerlessDeploymentBucketName"
+      }
+    },
+    "HelloLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "HelloLambdaVersiongtOTma4zURo6oztgqvNJVtulA9C9YZxz9uFXUApM"
+      },
+      "Export": {
+        "Name": "sls-api-dev-HelloLambdaFunctionQualifiedArn"
+      }
+    },
+    "ServiceEndpoint": {
+      "Description": "URL of the service endpoint",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "ApiGatewayRestApi"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            },
+            "/dev"
+          ]
+        ]
+      },
+      "Export": {
+        "Name": "sls-api-dev-ServiceEndpoint"
+      }
+    },
+    "GraphQlApiId": {
+      "Value": {
+        "Fn::GetAtt": [
+          "GraphQlApi",
+          "ApiId"
+        ]
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-GraphQlApiId"
+        }
+      }
+    },
+    "GraphQlApiUrl": {
+      "Value": {
+        "Fn::GetAtt": [
+          "GraphQlApi",
+          "GraphQLUrl"
+        ]
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-GraphQlApiUrl"
+        }
+      }
+    }
+  }
+}
