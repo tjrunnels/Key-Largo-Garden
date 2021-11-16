@@ -1,0 +1,12 @@
+{
+    "version" : "2018-05-29",
+    "operation" : "PutItem",
+    "key" : {
+        "updateID" : $util.dynamodb.toDynamoDBJson($util.autoId())
+    },
+    "attributeValues" : {
+        "updateType" : $util.dynamodb.toDynamoDBJson($context.arguments.updateType),
+        "postID": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($context.arguments.postID,'null')),
+        "plantID": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($context.arguments.plantID,'null'))
+    }
+}

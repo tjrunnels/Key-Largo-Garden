@@ -182,7 +182,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/api/dev/1637078287195-2021-11-16T15:58:07.195Z/api.zip"
+                "S3Key": "serverless/api/dev/1637102408814-2021-11-16T22:40:08.814Z/api.zip"
               },
               "Handler": "src/functions/hello/handler.main",
               "Runtime": "nodejs14.x",
@@ -329,7 +329,7 @@
               }
             }
           },
-          "ApiGatewayDeployment1637078285920": {
+          "ApiGatewayDeployment1637102407466": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -574,7 +574,7 @@
           "GraphQlSchema": {
             "Type": "AWS::AppSync::GraphQLSchema",
             "Properties": {
-              "Definition": "schema {\n  query: Query\n}\n\ntype Query {\n  getUpdate(updateID: String!): Update\n  getUpdates(nextToken: String): UpdatesPage\n  getPlant(plantID: String!): Plant\n  getPlants(nextToken: String): PlantsPage\n  getPlantsByPost(postID: String!): PlantsPage\n  getPost(postID: String!): Post\n  getPosts(nextToken: String): PostsPage\n  getPostsByPlant(plantID: String!, limit: Int, nextToken: String!): PostsPage\n}\n\ntype UpdatesPage {\n  updates: [Update]\n  nextToken: String\n  hasMore: Boolean\n}\n\ntype Update @model @key(fields: [\"updateID\"]) {\n  updateID: ID!\n  postID: ID\n  plantID: ID\n  updateType: [UpdateType]!\n}\n\nenum UpdateType {\n  POST_CREATED\n  PICTURE_ADDED\n  PLANT_ADDED\n  PLANT_REMOVED\n}\n\ntype PlantsPage {\n  plants: [Plant]\n  nextToken: String\n  hasMore: Boolean\n}\n\ntype Plant @model @key(fields: [\"plantID\"]) {\n  plantID: ID!\n  linkedIn: [Post]\n  name: String!\n  description: String\n  pictures: [String]\n  createdAt: AWSDateTime!\n  updatedAt: AWSDateTime!\n}\n\ntype PostsPage {\n  posts: [Post]\n  nextToken: String\n  hasMore: Boolean\n}\n\ntype Post @model @key(fields: [\"postID\"]) {\n  postID: ID!\n  linkedPlants: [Plant]\n  title: String!\n  content: String!\n  pictures: [String]\n  createdAt: AWSDateTime!\n  updatedAt: AWSDateTime!\n}",
+              "Definition": "schema {\n  query: Query\n  mutation: Mutation\n}\n\ntype Query {\n  getUpdate(updateID: String!): Update\n  getUpdates(nextToken: String): UpdatesPage\n  getPlant(plantID: String!): Plant\n  getPlants(nextToken: String): PlantsPage\n  getPlantsByPost(postID: String!): PlantsPage\n  getPost(postID: String!): Post\n  getPosts(nextToken: String): PostsPage\n  getPostsByPlant(plantID: String!, limit: Int, nextToken: String!): PostsPage\n}\n\ntype Mutation {\n  createUpdate(updateType: UpdateType!, postID: String, plantID: String): Update\n  updateUpdate(updateID: String!, updateType: UpdateType!, postID: String, plantID: String): Update\n  createPlant(name: String!, description: String, pictures: [String]): Plant\n  updatePlant(plantID: String!, name: String, description: String, pictures: [String]): Plant\n  deletePlant(plantID: String!): Plant\n  createPost(title: String!, content: String, pictures: [String]): Post\n  updatePost(postID: String!, title: String, content: String, pictures: [String]): Post\n  deletePost(postID: String!): Post\n}\n\ntype UpdatesPage {\n  updates: [Update]\n  nextToken: String\n  hasMore: Boolean\n}\n\ntype Update @model @key(fields: [\"updateID\"]) {\n  updateID: ID!\n  postID: ID\n  plantID: ID\n  updateType: UpdateType!\n}\n\nenum UpdateType {\n  POST_CREATED\n  PICTURE_ADDED\n  PLANT_ADDED\n  PLANT_REMOVED\n}\n\ntype PlantsPage {\n  plants: [Plant]\n  nextToken: String\n  hasMore: Boolean\n}\n\ntype Plant @model @key(fields: [\"plantID\"]) {\n  plantID: ID!\n  linkedIn: [Post]\n  name: String!\n  description: String\n  pictures: [String]\n  createdAt: AWSDateTime!\n  updatedAt: AWSDateTime!\n}\n\ntype PostsPage {\n  posts: [Post]\n  nextToken: String\n  hasMore: Boolean\n}\n\ntype Post @model @key(fields: [\"postID\"]) {\n  postID: ID!\n  linkedPlants: [Plant]\n  title: String!\n  content: String!\n  pictures: [String]\n  createdAt: AWSDateTime!\n  updatedAt: AWSDateTime!\n}",
               "ApiId": {
                 "Fn::GetAtt": [
                   "GraphQlApi",
@@ -1398,6 +1398,121 @@
               }
             }
           },
+          "GraphQlResolverMutationcreateUpdate": {
+            "Type": "AWS::AppSync::Resolver",
+            "DependsOn": "GraphQlSchema",
+            "Properties": {
+              "ApiId": {
+                "Fn::GetAtt": [
+                  "GraphQlApi",
+                  "ApiId"
+                ]
+              },
+              "TypeName": "Mutation",
+              "FieldName": "createUpdate",
+              "RequestMappingTemplate": "{\n    \"version\" : \"2018-05-29\",\n    \"operation\" : \"PutItem\",\n    \"key\" : {\n        \"updateID\" : $util.dynamodb.toDynamoDBJson($util.autoId())\n    },\n    \"attributeValues\" : {\n        \"updateType\" : $util.dynamodb.toDynamoDBJson($context.arguments.updateType),\n        \"postID\": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($context.arguments.postID,'null')),\n        \"plantID\": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($context.arguments.plantID,'null'))\n    }\n}",
+              "ResponseMappingTemplate": "$util.toJson($context.result)",
+              "Kind": "UNIT",
+              "DataSourceName": {
+                "Fn::GetAtt": [
+                  "GraphQlDsupdatesTable",
+                  "Name"
+                ]
+              }
+            }
+          },
+          "GraphQlResolverMutationcreatePlant": {
+            "Type": "AWS::AppSync::Resolver",
+            "DependsOn": "GraphQlSchema",
+            "Properties": {
+              "ApiId": {
+                "Fn::GetAtt": [
+                  "GraphQlApi",
+                  "ApiId"
+                ]
+              },
+              "TypeName": "Mutation",
+              "FieldName": "createPlant",
+              "RequestMappingTemplate": "{\n    \"version\" : \"2018-05-29\",\n    \"operation\" : \"PutItem\",\n    \"key\" : {\n        \"plantID\" : $util.dynamodb.toDynamoDBJson($util.autoId())\n    },\n    \"attributeValues\" : {\n        \"name\" : $util.dynamodb.toDynamoDBJson($context.arguments.name),\n        \"description\": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($context.arguments.description,'null')),\n        \"pictures\": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($context.arguments.pictures, []))\n    }\n}",
+              "ResponseMappingTemplate": "$util.toJson($context.result)",
+              "Kind": "UNIT",
+              "DataSourceName": {
+                "Fn::GetAtt": [
+                  "GraphQlDsplantsTable",
+                  "Name"
+                ]
+              }
+            }
+          },
+          "GraphQlResolverMutationdeletePlant": {
+            "Type": "AWS::AppSync::Resolver",
+            "DependsOn": "GraphQlSchema",
+            "Properties": {
+              "ApiId": {
+                "Fn::GetAtt": [
+                  "GraphQlApi",
+                  "ApiId"
+                ]
+              },
+              "TypeName": "Mutation",
+              "FieldName": "deletePlant",
+              "RequestMappingTemplate": "{\n    \"version\" : \"2018-05-29\",\n    \"operation\" : \"DeleteItem\",\n    \"key\" : {\n        \"plantID\" : $util.dynamodb.toDynamoDBJson($context.arguments.plantID),\n    },\n    \"condition\": {\n        \"expression\" : \"attribute_exists(plantID)\"\n    }\n}",
+              "ResponseMappingTemplate": "$util.toJson($context.result)",
+              "Kind": "UNIT",
+              "DataSourceName": {
+                "Fn::GetAtt": [
+                  "GraphQlDsplantsTable",
+                  "Name"
+                ]
+              }
+            }
+          },
+          "GraphQlResolverMutationcreatePost": {
+            "Type": "AWS::AppSync::Resolver",
+            "DependsOn": "GraphQlSchema",
+            "Properties": {
+              "ApiId": {
+                "Fn::GetAtt": [
+                  "GraphQlApi",
+                  "ApiId"
+                ]
+              },
+              "TypeName": "Mutation",
+              "FieldName": "createPost",
+              "RequestMappingTemplate": "{\n    \"version\" : \"2018-05-29\",\n    \"operation\" : \"PutItem\",\n    \"key\" : {\n        \"postID\" : $util.dynamodb.toDynamoDBJson($util.autoId())\n    },\n    \"attributeValues\" : {\n        \"title\" : $util.dynamodb.toDynamoDBJson($context.arguments.title),\n        \"content\": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($context.arguments.content,'null')),\n        \"pictures\": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($context.arguments.pictures, []))\n    }\n}",
+              "ResponseMappingTemplate": "$util.toJson($context.result)",
+              "Kind": "UNIT",
+              "DataSourceName": {
+                "Fn::GetAtt": [
+                  "GraphQlDspostsTable",
+                  "Name"
+                ]
+              }
+            }
+          },
+          "GraphQlResolverMutationdeletePost": {
+            "Type": "AWS::AppSync::Resolver",
+            "DependsOn": "GraphQlSchema",
+            "Properties": {
+              "ApiId": {
+                "Fn::GetAtt": [
+                  "GraphQlApi",
+                  "ApiId"
+                ]
+              },
+              "TypeName": "Mutation",
+              "FieldName": "deletePost",
+              "RequestMappingTemplate": "{\n    \"version\" : \"2018-05-29\",\n    \"operation\" : \"DeleteItem\",\n    \"key\" : {\n        \"postID\" : $util.dynamodb.toDynamoDBJson($context.arguments.postID),\n    },\n    \"condition\": {\n        \"expression\" : \"attribute_exists(postID)\"\n    }\n}",
+              "ResponseMappingTemplate": "$util.toJson($context.result)",
+              "Kind": "UNIT",
+              "DataSourceName": {
+                "Fn::GetAtt": [
+                  "GraphQlDspostsTable",
+                  "Name"
+                ]
+              }
+            }
+          },
           "GraphQlResolverPostlinkedPlants": {
             "Type": "AWS::AppSync::Resolver",
             "DependsOn": "GraphQlSchema",
@@ -1684,6 +1799,31 @@
           {
             "type": "Query",
             "field": "getPostsByPlant",
+            "dataSource": "postsTable"
+          },
+          {
+            "type": "Mutation",
+            "field": "createUpdate",
+            "dataSource": "updatesTable"
+          },
+          {
+            "type": "Mutation",
+            "field": "createPlant",
+            "dataSource": "plantsTable"
+          },
+          {
+            "type": "Mutation",
+            "field": "deletePlant",
+            "dataSource": "plantsTable"
+          },
+          {
+            "type": "Mutation",
+            "field": "createPost",
+            "dataSource": "postsTable"
+          },
+          {
+            "type": "Mutation",
+            "field": "deletePost",
             "dataSource": "postsTable"
           },
           {
@@ -2023,7 +2163,7 @@
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/api/dev/1637078287195-2021-11-16T15:58:07.195Z",
+    "artifactDirectoryName": "serverless/api/dev/1637102408814-2021-11-16T22:40:08.814Z",
     "artifact": "api.zip"
   }
 }

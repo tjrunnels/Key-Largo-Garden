@@ -1,5 +1,6 @@
 schema {
     query: Query
+    mutation: Mutation
 }
 
 
@@ -17,7 +18,47 @@ type Query {
 
 }
 
+type Mutation {
+    createUpdate(
+        updateType: UpdateType!, 
+        postID: String, 
+        plantID: String
+    ): Update
 
+    updateUpdate(
+        updateID: String!,
+        updateType: UpdateType!,
+        postID: String,
+        plantID: String
+    ): Update
+
+    createPlant(
+        name: String!, 
+        description: String, 
+        pictures: [String]
+    ): Plant
+    
+    updatePlant(
+        plantID: String!,
+        name: String,
+        description: String,
+        pictures: [String]
+    ): Plant
+    deletePlant(plantID: String!): Plant
+
+    createPost(
+        title: String!,
+        content: String,
+        pictures: [String]
+    ): Post
+    updatePost(
+        postID: String!,
+        title: String,
+        content: String,
+        pictures: [String]
+    ): Post
+    deletePost(postID: String!): Post
+}
 
 
 
@@ -36,7 +77,7 @@ type Update @model @key(fields: ["updateID"]) {
     updateID: ID!
     postID: ID
     plantID: ID
-    updateType: [UpdateType]!
+    updateType: UpdateType!
 }
 
 enum UpdateType {

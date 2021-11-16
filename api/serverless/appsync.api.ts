@@ -13,8 +13,8 @@ const AppSyncResources = {
     mappingTemplatesLocation: 'serverless/mappingTemplates',
     mappingTemplates: [
         
-        ///Queries
-
+        /// Queries
+        ...[
             ///Updates
         {
             type: 'Query',
@@ -75,23 +75,76 @@ const AppSyncResources = {
         //     field: 'getPostsByPlant',
         //     dataSource: 'postsTable'
         // },
-        {
-            type: 'Post', 
-            field: 'linkedPlants',
-            kind: 'PIPELINE',
-            functions: ['getPlants','hydratePlants'],
-            request: 'simplePipeline.request.vtl',
-            response: 'simplePipeline.response.vtl',
-        },
-        {
-            type: 'Plant', 
-            field: 'linkedIn',
-            kind: 'PIPELINE',
-            functions: ['getPosts','hydratePosts'],
-            request: 'simplePipeline.request.vtl',
-            response: 'simplePipeline.response.vtl',
-        },
+        ],
+         
+        /// Mutations
+        ...[
+            ///Updates
+            {
+                type: 'Mutation',
+                field: 'createUpdate',
+                dataSource: 'updatesTable'
+            },
+            // {
+            //     type: 'Mutation',
+            //     field: 'updateUpdate',
+            //     dataSource: 'updatesTable'
+            // },
+            
+            // ///Plants
+            {
+                type: 'Mutation',
+                field: 'createPlant',
+                dataSource: 'plantsTable'
+            },
+            // {
+            //     type: 'Mutation',
+            //     field: 'updatePlant',
+            //     dataSource: 'plantsTable'
+            // },
+            {
+                type: 'Mutation',
+                field: 'deletePlant',
+                dataSource: 'plantsTable'
+            },
+
+            // ///Posts
+            {
+                type: 'Mutation',
+                field: 'createPost',
+                dataSource: 'postsTable'
+            },
+            // {
+            //     type: 'Mutation',
+            //     field: 'updatePost',
+            //     dataSource: 'postsTable'
+            // },
+            {
+                type: 'Mutation',
+                field: 'deletePost',
+                dataSource: 'postsTable'
+            },
+        ],  
         
+        /// Nested Functions
+        ...[
+            {
+                type: 'Post', 
+                field: 'linkedPlants',
+                kind: 'PIPELINE',
+                functions: ['getPlants','hydratePlants'],
+                request: 'simplePipeline.request.vtl',
+                response: 'simplePipeline.response.vtl',
+            },
+            {
+                type: 'Plant', 
+                field: 'linkedIn',
+                kind: 'PIPELINE',
+                functions: ['getPosts','hydratePosts'],
+                request: 'simplePipeline.request.vtl',
+                response: 'simplePipeline.response.vtl',
+            },
+        ],
     ],
 
     functionConfigurations: [
