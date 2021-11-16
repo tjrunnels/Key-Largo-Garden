@@ -54,7 +54,7 @@ type PlantsPage {
 
 type Plant @model @key(fields: ["plantID"]) {
     plantID: ID!
-    linkedIn: [PostsPage]
+    linkedIn: [Post]
 
     name: String!
     description: String

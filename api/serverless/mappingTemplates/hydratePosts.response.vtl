@@ -1,0 +1,5 @@
+## { 
+##    "posts": $util.toJson($context.result.data.${PostsTable}),
+##    "nextToken": $util.toJson($util.defaultIfNullOrBlank($context.prev.result.nextToken, null))
+## }
+$util.toJson($context.result.data.${PostsTable})

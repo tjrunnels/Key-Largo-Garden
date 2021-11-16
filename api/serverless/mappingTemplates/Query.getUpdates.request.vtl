@@ -1,0 +1,13 @@
+#if ($context.arguments.limit)
+    #set ($isValidLimit = $context.arguments.limit <= 25)
+    $util.validate($isValidLimit, 'Max limit is 25')
+#end
+
+{
+    "version": "2018-05-29",
+    "operation": "GetItem",
+    "key": {
+        "nextToken": $util.dynamodb.toDynamoDBJson($context.arguments.updateID)
+    }
+}
+

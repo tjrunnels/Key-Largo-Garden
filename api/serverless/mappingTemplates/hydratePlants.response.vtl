@@ -1,0 +1,5 @@
+## { 
+##    "plants": $util.toJson($context.result.data.${PlantsTable}),
+##    "nextToken": $util.toJson($util.defaultIfNullOrBlank($context.prev.result.nextToken, null))
+## }
+$util.toJson($context.result.data.${PlantsTable}),

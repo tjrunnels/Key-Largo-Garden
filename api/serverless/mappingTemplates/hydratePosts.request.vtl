@@ -1,0 +1,23 @@
+
+
+#if ($context.prev.result.relationships.size() == 0)
+    #return({ "posts": [] })
+#end
+
+#set ($posts = [])
+#foreach ($relationship in $context.prev.result.relationships)
+    #set ($post = {})
+    #set ($post.postID = $relationship.postID)
+    $util.qr($posts.add($util.dynamodb.toMapValues($post)))
+#end
+
+{
+    "version" : "2018-05-29",
+    "operation" : "BatchGetItem",
+    "tables" : {
+        "${PostsTable}": {
+            "keys": $util.toJson($posts),
+            "consistentRead": false
+        }
+    }
+}
