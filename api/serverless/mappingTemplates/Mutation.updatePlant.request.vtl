@@ -1,0 +1,21 @@
+#set( $date = $util.time.nowEpochMilliSeconds() )
+
+{
+    "version" : "2018-05-29",
+    "operation" : "UpdateItem",
+    "key": {
+        "plantID" : $util.dynamodb.toDynamoDBJson($context.arguments.plantID),
+    },
+    "update" : {
+        "expression" : "SET plantName= :plantName, description = :description, pictures= :pictures, updatedAt= :uAt",
+        "expressionValues" : {
+            ":plantName" : $util.dynamodb.toDynamoDBJson($context.arguments.plantName),
+            ":description" : $util.dynamodb.toDynamoDBJson($context.arguments.description),
+            ":pictures" : $util.dynamodb.toDynamoDBJson($context.arguments.pictures),
+            ":uAt" : $util.dynamodb.toDynamoDBJson($date),
+        }
+    },
+    "condition": {
+        "expression": "attribute_exists(plantID)"
+    }
+}

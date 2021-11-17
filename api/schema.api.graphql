@@ -33,14 +33,14 @@ type Mutation {
     ): Update
 
     createPlant(
-        name: String!, 
+        plantName: String!, 
         description: String, 
         pictures: [String]
     ): Plant
-    
+
     updatePlant(
         plantID: String!,
-        name: String,
+        plantName: String,
         description: String,
         pictures: [String]
     ): Plant
@@ -97,7 +97,7 @@ type Plant @model @key(fields: ["plantID"]) {
     plantID: ID!
     linkedIn: [Post]
 
-    name: String!
+    plantName: String!
     description: String
     pictures: [String]
 

@@ -85,11 +85,11 @@ const AppSyncResources = {
                 field: 'createUpdate',
                 dataSource: 'updatesTable'
             },
-            // {
-            //     type: 'Mutation',
-            //     field: 'updateUpdate',
-            //     dataSource: 'updatesTable'
-            // },
+            {
+                type: 'Mutation',
+                field: 'updateUpdate',
+                dataSource: 'updatesTable'
+            },
             
             // ///Plants
             {
@@ -97,11 +97,11 @@ const AppSyncResources = {
                 field: 'createPlant',
                 dataSource: 'plantsTable'
             },
-            // {
-            //     type: 'Mutation',
-            //     field: 'updatePlant',
-            //     dataSource: 'plantsTable'
-            // },
+            {
+                type: 'Mutation',
+                field: 'updatePlant',
+                dataSource: 'plantsTable'
+            },
             {
                 type: 'Mutation',
                 field: 'deletePlant',
@@ -114,11 +114,11 @@ const AppSyncResources = {
                 field: 'createPost',
                 dataSource: 'postsTable'
             },
-            // {
-            //     type: 'Mutation',
-            //     field: 'updatePost',
-            //     dataSource: 'postsTable'
-            // },
+            {
+                type: 'Mutation',
+                field: 'updatePost',
+                dataSource: 'postsTable'
+            },
             {
                 type: 'Mutation',
                 field: 'deletePost',

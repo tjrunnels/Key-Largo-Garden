@@ -1,0 +1,18 @@
+{
+    "version" : "2018-05-29",
+    "operation" : "UpdateItem",
+    "key": {
+        "updateID" : $util.dynamodb.toDynamoDBJson($context.arguments.updateID),
+    },
+    "update" : {
+        "expression" : "SET postID= :poID, plantID = :plID, updateType= :uT",
+        "expressionValues" : {
+           ":poID" : $util.dynamodb.toDynamoDBJson($context.arguments.postID),
+            ":plID" : $util.dynamodb.toDynamoDBJson($context.arguments.plantID),
+            ":uT" : $util.dynamodb.toDynamoDBJson($context.arguments.updateType),
+        }
+    },
+    "condition": {
+        "expression": "attribute_exists(updateID)"
+    }
+}
